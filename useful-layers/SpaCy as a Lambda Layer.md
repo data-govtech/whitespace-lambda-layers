@@ -1,8 +1,8 @@
-# Create NLTK Lambda Layer
+# Create SpaCy Lambda Layer
 
-To use NTLK in AWS Lambda function, you can create a lambda layer to include NTLK library and necessary packages.  
+To use SpaCy in AWS Lambda function, you can create a lambda layer to include SpaCy library and necessary packages.  
 
-But apart from NTLK library, it is common to download other NLTK supporting packages. 
+Apart from SpaCy library, it is common to download other supporting packages. 
 
 
 
@@ -25,20 +25,17 @@ virtualenv --python=python3.8 v-env
 source ./v-env/bin/activate
 
 # Install library and download package
-pip install -r nltk_requirements.txt
-python -c "import nltk; nltk.download('stopwords', download_dir='./nltk_data')"
-python -c "import nltk; nltk.download('punkt', download_dir='./nltk_data')"
+pip install -r spacy_requirements.txt
+python -c "python -m spacy download en_core_web_sm"
 
 # Copy library and package(s) into /python folder
 mkdir python
 cp -R v-env/lib/python3.8/site-packages/* ./python
-cp -R nltk_data ./python
 
 # Create zip file
-zip -r nltk.zip python --exclude python/*.zip* --exclude python/__pycache__
+zip -r spacy.zip python --exclude python/*.zip* --exclude python/__pycache__
 
 # Clean up
-rm -rf nltk_data
 rm -rf v-env
 rm -rf python
 ```
